@@ -1,6 +1,9 @@
 <h2>
-  Integrantes del grupo:
+  Integrantes del grupo
 </h2>
-- Ale Rocio
-- Rao Nicolas
-- Silva Valentin
+<ul>
+  <li>Ale Rocio</li>
+  <li>Rao Nicolas</li>
+  <li>Silva Valentin</li>
+</ul>
+
