@@ -90,10 +90,10 @@ while menu != 6:
 
         else:
 
-            menu_2 = 1
+            submenu = 1
 
-            while menu_2 != 4:
-                menu_2 = get_indice("Menu: \n"
+            while submenu != 4:
+                submenu = get_indice("Menu: \n"
                                 "1) Modificar fila\n" 
                                 "2) Modificar columna\n"
                                 "3) Carga distribuida\n"
@@ -101,7 +101,7 @@ while menu != 6:
                                 1,
                                 4)
                     
-                match menu_2:
+                match submenu:
 
                     case 1:
                         mostrar_matriz(nombre_columnas,tabla)
@@ -112,6 +112,7 @@ while menu != 6:
                            )
 
                         modificar_fila(tabla , fila)
+                        mostrar_matriz(nombre_columnas,tabla)
 
                     case 2:
                         mostrar_matriz(nombre_columnas,tabla)
@@ -122,6 +123,7 @@ while menu != 6:
                            )
                         
                         modificar_columna(tabla , columna)
+                        mostrar_matriz(nombre_columnas,tabla)
 
                     case 3:
                         mostrar_matriz(nombre_columnas,tabla)
@@ -137,6 +139,7 @@ while menu != 6:
                            )
                         
                         carga_distribuida (tabla , fila , columna)
+                        mostrar_matriz(nombre_columnas,tabla)
 
 
 
@@ -182,23 +185,51 @@ while menu != 6:
         if len(tabla) == 0:
             print("No hay tablas creadas")
         else:
-            menu_3 = 1
+            submenu_2 = 1
 
-            while menu_3 != 6:
+            while submenu_2 != 6:
 
-                menu_3 = get_indice("Menu: \n"
+                submenu_2 = get_indice("Menu: \n"
                                 "1) Frecuencias\n" 
                                 "2) Maximos y minimos\n"
                                 "3) Promedio aritmetico\n"
                                 "4) Promedio Geometrico\n" \
                                 "5) Medidas de dispersion\n" \
-                                "6) Salir\n",
+                                "6) Volver al menu principal\n",
                                 1,
                                 6)
                 
-                match menu_3:
+                match submenu_2:
+
                     case 1:
-                        print("")
+                        for i in range(len(nombre_columnas)):
+                            print(f"{i}) {nombre_columnas[i]}")
+
+                        columna = get_indice("Seleccione la columna:",
+                                             0,
+                                             len(nombre_columnas)-1
+                                             )
+                        
+                        if es_columna_numerica(tabla , columna) == True:
+
+                            lista_columna = obtener_columna(tabla , columna)
+
+                            valor = get_int("Ingrese el valor numerico que desee hallar su frecuencia: ")
+
+                            frecuencia = calcular_frecuencia(lista_columna , valor )
+
+                            print(f"La frecuencia con la cual aparece el numero {valor} es: {frecuencia}  ")
+
+                        else:
+
+                            lista_columna = obtener_columna(tabla , columna)
+                            
+                            valor = input("Ingrese un valor que desee hallar su frecuencia: ")
+
+                            frecuencia = calcular_frecuencia(lista_columna , valor )
+
+                            print(f"La frecuencia con la cual aparece {valor} es: {frecuencia}  ")
+
 
                     case 2:
                         for i in range(len(nombre_columnas)):
@@ -242,15 +273,60 @@ while menu != 6:
                         else:
                             print("La columna ingresada no es numerica")
 
-
-
-
+                    case 4:
+                        for i in range(len(nombre_columnas)):
+                            print(f"{i}) {nombre_columnas[i]}")
                         
+                        columna = get_indice("Seleccione la columna:",
+                                             0,
+                                             len(nombre_columnas)-1
+                                             )
+                        
+                        if es_columna_numerica(tabla , columna) == True:
 
+                            lista_columna = obtener_columna(tabla , columna)
 
-                
-            
-        
+                            promedio = calcular_promedio_geometrico(lista_columna)
+
+                            print(f"Promedio: {promedio}")
+
+                        else:
+                            print("La columna ingresada no es numerica")
+
+                    case 5:
+                        submenu_3 = 1
+
+                        while submenu_3 != 2:
+
+                            submenu_3 = get_indice("Menu: \n"
+                                                   "1) Rango\n" 
+                                                   "2) Volver al menu de estadistica\n",
+                                                   1,
+                                                   2
+                                                   )
+                            
+                            match submenu_3:
+
+                                case 1:
+                                    for i in range(len(nombre_columnas)):
+                                        print(f"{i}) {nombre_columnas[i]}")
+                        
+                                    columna = get_indice("Seleccione la columna:",
+                                                0,
+                                                len(nombre_columnas)-1
+                                                )
+                        
+                                    if es_columna_numerica(tabla , columna) == True:
+
+                                        lista_columna = obtener_columna(tabla , columna)
+
+                                        rango = calcular_rango(lista_columna)
+
+                                        print(f"El rango entre el maximo y el minimo es: {rango}")
+
+                                    else:
+                                        print("La columna ingresada no es numerica")
+                                    
     elif menu == 6:
         print("Finalizar la ejecución del programa\n")
 

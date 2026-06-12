@@ -59,6 +59,14 @@ def es_primo(num:int) -> bool:
 
 def calcular_promedio(lista:list) -> float:
 
+    """
+    Calcula el promedio aritmetico
+    de una lista numerica.
+
+    Retorno:
+    float -> promedio de la lista.
+    """
+
     suma = 0
 
     for i in range(len(lista)):
@@ -69,6 +77,14 @@ def calcular_promedio(lista:list) -> float:
     return promedio
 
 def calcular_maximo(lista:list):
+
+    """
+    Determina el valor maximo
+    de una lista numerica.
+
+    Retorno:
+    int -> valor maximo.
+    """
     
     for i in range (len(lista)):
         if i == 0:
@@ -79,6 +95,14 @@ def calcular_maximo(lista:list):
     return may    
 
 def calcular_minimo(lista:list):
+
+    """
+    Determina el valor minimo
+    de una lista numerica.
+
+    Retorno:
+    int -> valor minimo.
+    """
     
     for i in range (len(lista)):
         if i == 0:
@@ -87,6 +111,52 @@ def calcular_minimo(lista:list):
             men = lista[i]
 
     return men
+
+def calcular_frecuencia(lista:list, valor) -> int:
+
+    """
+    Calcula la frecuencia de un
+    valor dentro de una lista.
+
+    Retorno:
+    int -> cantidad de apariciones.
+    """
+
+    contador = 0
+
+    for i in range(len(lista)):
+        if lista[i] == valor:
+            contador += 1
+
+    return contador
+
+def calcular_promedio_geometrico(lista:list) -> float:
+
+    """
+    Calcula el promedio geometrico
+    de una lista numerica.
+
+    Retorno:
+    float -> promedio geometrico.
+    """
+
+    producto = 1
+
+    for i in range(len(lista)):
+        producto *= lista[i]
+
+    promedio = producto ** (1 / len(lista))
+
+    return promedio
+
+def calcular_rango(lista:list) -> int:
+
+    maximo = calcular_maximo(lista)
+    minimo = calcular_minimo(lista)
+
+    rango = maximo - minimo
+
+    return rango
     
         
 
