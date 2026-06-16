@@ -4,6 +4,16 @@ from paquete.validaciones import es_numero
 
 def generar_matriz(filas:int , columnas:int , default) -> list:
 
+    """
+    Genera una matriz con una
+    cantidad determinada de
+    filas y columnas.
+
+    Retorno:
+    list -> matriz inicializada
+    con el valor por defecto.
+    """
+
     matriz = []
 
     for i in range(filas):
@@ -18,6 +28,15 @@ def generar_matriz(filas:int , columnas:int , default) -> list:
     return matriz
 
 def crear_columnas(cantidad:int) -> list:
+
+    """
+    Solicita los nombres de las
+    columnas de una tabla.
+
+    Retorno:
+    list -> lista con los nombres
+    de las columnas.
+    """
 
     columnas = []
 
@@ -42,6 +61,18 @@ def crear_columnas(cantidad:int) -> list:
 
 def cargar_matriz(matriz:list) -> list:
 
+    """
+    Permite cargar los datos
+    de una matriz. Si el dato
+    ingresado es numerico se
+    almacena como entero, de
+    lo contrario se almacena
+    como cadena.
+
+    Retorno:
+    list -> matriz cargada.
+    """
+
     for i in range(len(matriz)):
         for j in range(len(matriz[i])):
 
@@ -61,6 +92,12 @@ def cargar_matriz(matriz:list) -> list:
 
 def carga_distribuida(matriz:list, fila:int, columna:int):
 
+    """
+    Permite modificar un valor
+    especifico de una matriz
+    indicando fila y columna.
+    """
+
     dato = input(f"Ingrese el nuevo valor de fila {fila} , columna {columna}: ")
 
     if es_numero(dato):
@@ -75,6 +112,12 @@ def carga_distribuida(matriz:list, fila:int, columna:int):
 #Mostrar------------------------------------------------------------------------------------------------------------------------#
 
 def mostrar_matriz(columnas:list, matriz:list):
+
+    """
+    Muestra por pantalla una
+    matriz junto con los nombres
+    de sus columnas.
+    """
 
     print("|", end=" ")
 
@@ -94,6 +137,12 @@ def mostrar_matriz(columnas:list, matriz:list):
 
 def mostrar_fila(matriz:list, fila:int):
 
+    """
+    Muestra por pantalla una
+    fila determinada de una
+    matriz.
+    """
+
     print("|", end=" ")
 
     for i in range(len(matriz[fila])):
@@ -103,10 +152,24 @@ def mostrar_fila(matriz:list, fila:int):
 
 def mostrar_columna(matriz:list, columna:int):
 
+    """
+    Muestra por pantalla una
+    columna determinada de
+    una matriz.
+    """
+
     for i in range(len(matriz)):
         print(matriz[i][columna])
 
 def filtrar_contenido(matriz:list , fila:int , columna:int):
+
+    """
+    Muestra el contenido de una
+    posicion especifica de la
+    matriz indicando fila y
+    columna.
+    """
+
     print(f"Fila {fila} , columna {columna} = {matriz[fila][columna]}")
 
 #----------------------------------------------------------------------------------------------------------------------------------#
@@ -116,16 +179,39 @@ def filtrar_contenido(matriz:list , fila:int , columna:int):
 
 def modificar_fila(matriz:list , fila:int):
 
+    """
+    Permite modificar todos los
+    elementos de una fila
+    determinada de la matriz.
+    """
+
     for i in range(len(matriz[fila])):
         matriz[fila][i] = input(f"Ingrese el nuevo valor de la columna {i}: ")
 
 def modificar_columna(matriz:list , columna:int):
+
+    """
+    Permite modificar todos los
+    elementos de una columna
+    determinada de la matriz.
+    """
+
     for i in range (len(matriz)):
         matriz[i][columna] = input(f"Ingrese el nuevo valor de la fila {i}: ")
 
 #-----------------------------------------------------------------------------------------------------------------------------------#
         
 def es_columna_numerica(matriz:list, columna:int) -> bool:
+
+    """
+    Determina si todos los
+    elementos de una columna
+    son numericos.
+
+    Retorno:
+    true -> columna numerica.
+    false -> columna NO numerica.
+    """
 
     retorno = True
 
@@ -137,6 +223,16 @@ def es_columna_numerica(matriz:list, columna:int) -> bool:
 
 
 def obtener_columna(matriz:list, columna:int) -> list:
+
+    """
+    Obtiene los elementos de una
+    columna determinada de una
+    matriz.
+
+    Retorno:
+    list -> elementos de la
+    columna seleccionada.
+    """
 
     lista = []
 

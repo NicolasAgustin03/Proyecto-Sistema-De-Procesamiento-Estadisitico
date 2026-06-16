@@ -13,6 +13,17 @@ def validar_rango(num:int , minimo:int , maximo:int) -> bool:
     
 
 def es_numero(cadena:str) -> bool:
+
+    """
+    Determina si una cadena
+    contiene solamente caracteres
+    numericos.
+
+    Retorno:
+    true -> cadena numerica.
+    false -> cadena NO numerica.
+    """
+     
     valido = True
 
     if cadena == "":
@@ -26,6 +37,15 @@ def es_numero(cadena:str) -> bool:
 
 def get_int(mensaje:str) -> int:
 
+    """
+    Solicita el ingreso de un
+    numero entero validando
+    la informacion ingresada.
+
+    Retorno:
+    int -> numero entero validado.
+    """
+
     numero = input(mensaje)
 
     while es_numero(numero) == False:
@@ -37,6 +57,15 @@ def get_int(mensaje:str) -> int:
     return numero
 
 def get_indice(mensaje:str, minimo:int, maximo:int) -> int:
+
+    """
+    Solicita el ingreso de un
+    indice dentro de un rango
+    determinado.
+
+    Retorno:
+    int -> indice validado.
+    """
 
     indice = get_int(mensaje)
 

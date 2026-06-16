@@ -151,6 +151,15 @@ def calcular_promedio_geometrico(lista:list) -> float:
 
 def calcular_rango(lista:list) -> int:
 
+    """
+    Calcula el rango de una lista
+    numerica.
+
+    Retorno:
+    int -> diferencia entre el
+    valor maximo y el minimo.
+    """
+
     maximo = calcular_maximo(lista)
     minimo = calcular_minimo(lista)
 
