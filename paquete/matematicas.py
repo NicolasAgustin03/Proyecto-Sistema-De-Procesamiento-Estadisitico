@@ -166,6 +166,100 @@ def calcular_rango(lista:list) -> int:
     rango = maximo - minimo
 
     return rango
+
+def calcular_varianza(lista:list) -> float:
+
+    promedio = calcular_promedio(lista)
+
+    suma = 0
+
+    for i in range(len(lista)):
+
+        diferencia = lista[i] - promedio
+
+        suma += diferencia ** 2
+
+    varianza = suma / len(lista)
+
+    return varianza
+
+def calcular_desvio_estandar(lista:list) -> float:
+
+    varianza = calcular_varianza(lista)
+
+    desvio = varianza ** 0.5
+
+    return desvio
+
+def calcular_coeficiente_variacion(lista:list) -> float:
+
+    promedio = calcular_promedio(lista)
+
+    desvio = calcular_desvio_estandar(lista)
+
+    coeficiente = (desvio / promedio) * 100
+
+    return coeficiente
+
+def ordenar_ascendente(lista:list) -> list:
+
+    for i in range(len(lista) - 1):
+
+        for j in range(len(lista) - 1 - i):
+
+            if lista[j] > lista[j + 1]:
+
+                aux = lista[j]
+                lista[j] = lista[j + 1]
+                lista[j + 1] = aux
+
+    return lista
+
+def calcular_mediana(lista:list) -> float:
+
+    cantidad = len(lista)
+
+    if cantidad % 2 != 0:
+
+        mediana = lista[cantidad // 2]
+
+    else:
+
+        medio1 = lista[(cantidad // 2) - 1]
+        medio2 = lista[cantidad // 2]
+
+        mediana = (medio1 + medio2) / 2
+
+    return mediana
+
+def calcular_cuartiles(lista:list) -> tuple:
+
+    mitad_inferior = []
+    mitad_superior = []
+
+    medio = len(lista) // 2
+
+    if len(lista) % 2 == 0:
+
+        for i in range(medio):
+            mitad_inferior.append(lista[i])
+
+        for i in range(medio, len(lista)):
+            mitad_superior.append(lista[i])
+
+    else:
+
+        for i in range(medio):
+            mitad_inferior.append(lista[i])
+
+        for i in range(medio + 1, len(lista)):
+            mitad_superior.append(lista[i])
+
+    q1 = calcular_mediana(mitad_inferior)
+    q2 = calcular_mediana(lista)
+    q3 = calcular_mediana(mitad_superior)
+
+    return q1, q2, q3
     
         
 

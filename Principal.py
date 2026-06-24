@@ -1,9 +1,10 @@
 from paquete import *
 
-usuario1 = ""
-contraseña1 = ""
-usuario_creado = False
-login = False
+RUTA_USUARIOS ="archivos/usuarios.csv"
+
+usuarios = cargar_usuarios(RUTA_USUARIOS)
+
+login = True
 
 while login == False:
 
@@ -14,32 +15,34 @@ while login == False:
 
     if cuenta == "registrarse":
 
-        datos_usuario = registrar_usuario()
+        registrar_usuario(usuarios)
 
-        usuario1 = datos_usuario[0]
-        contraseña1 = datos_usuario[1]
+        guardar_usuarios(
+            usuarios,
+            RUTA_USUARIOS
+        )
 
         print("Inicie sesion\n")
 
-        iniciar_sesion (usuario1, contraseña1)
-
-        usuario_creado = True
+        iniciar_sesion(usuarios)
 
         login = True
 
     elif cuenta == "iniciar sesion":
 
-        if usuario_creado == False:
+        if len(usuarios) == 0:
+
             print("No existen usuarios creados, debe registrarse primero")
 
         else:
 
-            iniciar_sesion(usuario1, contraseña1)
+            iniciar_sesion(usuarios)
 
             login = True
 
 tabla = []
 nombre_columnas = []
+proyectos = []
 menu = 0
 
 while menu != 6:
@@ -59,26 +62,47 @@ while menu != 6:
     if menu == 1:
         print("Generación y gestión de proyectos\n")
 
+        nombre = input("Ingrese el nombre del proyecto: ")
+
+        proyecto = crear_proyecto(nombre)
+
+        proyectos.append(proyecto)
+
+        print("Proyecto creado correctamente")
+
+
     elif menu == 2:
         print("Creación y modificación de tablas\n")
 
-        filas = get_int("Ingrese la cantidad de filas: ")
+        if len(proyectos) > 0:
+        
+            proyecto = seleccionar_proyecto(proyectos)
 
-        while filas <= 0:
-            print("Debe ingresar una cantidad mayor a 0")
             filas = get_int("Ingrese la cantidad de filas: ")
-        
-        
-        columnas = get_int("Ingrese la cantidad de columnas: ")
 
-        while columnas <= 0:
-            print("Debe ingresar una cantidad mayor a 0")
+            while filas <= 0:
+                print("Debe ingresar una cantidad mayor a 0")
+                filas = get_int("Ingrese la cantidad de filas: ")
+        
+        
             columnas = get_int("Ingrese la cantidad de columnas: ")
+
+            while columnas <= 0:
+                print("Debe ingresar una cantidad mayor a 0")
+                columnas = get_int("Ingrese la cantidad de columnas: ")
         
 
-        nombre_columnas = crear_columnas(columnas)
-        tabla = generar_matriz(filas , columnas , "")
-        cargar_matriz(tabla)
+            nombre_columnas = crear_columnas(columnas)
+            tabla = generar_matriz(filas , columnas , "")
+            cargar_matriz(tabla)
+
+            proyecto["columnas"] = nombre_columnas
+            proyecto["tabla"] = tabla
+
+            print("Tabla creada correctamente")
+
+        else:
+            print("No existen proyectos creados")
     
 
     elif menu == 3:
@@ -187,17 +211,18 @@ while menu != 6:
         else:
             submenu_2 = 1
 
-            while submenu_2 != 6:
+            while submenu_2 != 7:
 
                 submenu_2 = get_indice("Menu: \n"
                                 "1) Frecuencias\n" 
                                 "2) Maximos y minimos\n"
                                 "3) Promedio aritmetico\n"
-                                "4) Promedio Geometrico\n" \
-                                "5) Medidas de dispersion\n" \
-                                "6) Volver al menu principal\n",
+                                "4) Promedio Geometrico\n" 
+                                "5) Medidas de dispersion\n"
+                                "6) Medidas de posicion\n"  
+                                "7) Volver al menu principal\n",
                                 1,
-                                6)
+                                7)
                 
                 match submenu_2:
 
@@ -296,13 +321,16 @@ while menu != 6:
                     case 5:
                         submenu_3 = 1
 
-                        while submenu_3 != 2:
+                        while submenu_3 != 5:
 
                             submenu_3 = get_indice("Menu: \n"
                                                    "1) Rango\n" 
-                                                   "2) Volver al menu de estadistica\n",
+                                                   "2) Varianza\n"
+                                                   "3) Desvio estandar\n"
+                                                   "4) Coeficiente de variacion\n"
+                                                   "5) Volver al menu de estadistica\n",
                                                    1,
-                                                   2
+                                                   5
                                                    )
                             
                             match submenu_3:
@@ -326,7 +354,133 @@ while menu != 6:
 
                                     else:
                                         print("La columna ingresada no es numerica")
+
+                                case 2:
+                                    for i in range(len(nombre_columnas)):
+                                        print(f"{i}) {nombre_columnas[i]}")
+                        
+                                    columna = get_indice("Seleccione la columna:",
+                                                0,
+                                                len(nombre_columnas)-1
+                                                )
+                        
+                                    if es_columna_numerica(tabla , columna) == True:
+
+                                        lista_columna = obtener_columna(tabla , columna)
+
+                                        varianza = calcular_varianza(lista_columna)
+
+                                        print(f"La varianza es: {varianza}")
+
+                                    else:
+                                        print("La columna ingresada no es numerica")
+
+                                case 3:
+                                    for i in range(len(nombre_columnas)):
+                                        print(f"{i}) {nombre_columnas[i]}")
+                        
+                                    columna = get_indice("Seleccione la columna:",
+                                                0,
+                                                len(nombre_columnas)-1
+                                                )
+                        
+                                    if es_columna_numerica(tabla , columna) == True:
+
+                                        lista_columna = obtener_columna(tabla , columna)
+
+                                        desvio_estandar =  calcular_desvio_estandar(lista_columna)
+
+                                        print(f"El desvio estandar es: {desvio_estandar}")
+
+                                    else:
+                                        print("La columna ingresada no es numerica")
+
+                                case 4:
+                                    for i in range(len(nombre_columnas)):
+                                        print(f"{i}) {nombre_columnas[i]}")
+                        
+                                    columna = get_indice("Seleccione la columna:",
+                                                0,
+                                                len(nombre_columnas)-1
+                                                )
+                        
+                                    if es_columna_numerica(tabla , columna) == True:
+
+                                        lista_columna = obtener_columna(tabla , columna)
+
+                                        coeficiente_variacion = calcular_coeficiente_variacion(lista_columna)
+
+                                        print(f"El coeficiente de variacion es: {coeficiente_variacion}")
+
+                                    else:
+                                        print("La columna ingresada no es numerica")
+
+                    case 6:
+                        submenu_4 = 1
+
+                        while submenu_4 != 3:
+
+                            submenu_4 = get_indice("Menu: \n"
+                                                   "1) Mediana\n" 
+                                                   "2) Cuartiles\n"
+                                                   "3) Salir",
+                                                   1,
+                                                   3
+                                                   )
+                            
+                            match submenu_4:
+
+                                case 1:
+
+                                    for i in range(len(nombre_columnas)):
+                                        print(f"{i}) {nombre_columnas[i]}")
+                        
+                                    columna = get_indice("Seleccione la columna:",
+                                                0,
+                                                len(nombre_columnas)-1
+                                                )
+                        
+                                    if es_columna_numerica(tabla , columna) == True:
+
+                                        lista_columna = obtener_columna(tabla , columna)
+
+                                        ordenar_ascendente(lista_columna)
+
+                                        mediana = calcular_mediana(lista_columna)
+
+                                        print(f"Mediana: {mediana}")
                                     
+                                    else:
+                                        print("La columna ingresada no es numerica")
+
+                                case 2:
+
+                                    for i in range(len(nombre_columnas)):
+                                        print(f"{i}) {nombre_columnas[i]}")
+                        
+                                    columna = get_indice("Seleccione la columna:",
+                                                0,
+                                                len(nombre_columnas)-1
+                                                )
+                        
+                                    if es_columna_numerica(tabla , columna) == True:
+
+                                        lista_columna = obtener_columna(tabla , columna)
+
+                                        ordenar_ascendente(lista_columna)
+
+                                        q1, q2, q3 = calcular_cuartiles(lista_columna)
+
+                                        print(f"Q1: {q1}")
+                                        print(f"Q2: {q2}")
+                                        print(f"Q3: {q3}")
+                                    
+                                    else:
+                                        print("La columna ingresada no es numerica")
+
+
+
+                        
     elif menu == 6:
         print("Finalizar la ejecución del programa\n")
 

@@ -1,36 +1,42 @@
-def registrar_usuario() -> list:
+def registrar_usuario(usuarios:list) -> None:
     """
     Permite registrar un usuario
     y una contraseña.
     """
 
-    datos_usuario = []
-
     usuario = input("Cree su nombre de usuario: ")
     contraseña = input("Cree su contraseña: ")
 
-    datos_usuario.append(usuario)
-    datos_usuario.append(contraseña)
+    nuevo_usuario = {
+        "usuario": usuario,
+        "contraseña": contraseña
+    }
+
+    usuarios.append(nuevo_usuario)
 
     print("Registro exitoso")
 
-    return datos_usuario
-
-def iniciar_sesion(usuario_registrado:str, contraseña_registrada:str):
+def iniciar_sesion(usuarios:list):
     """
     Permite iniciar sesion
     validando usuario y contraseña.
     """
 
-    usuario = input("Ingrese su nombre de usuario: ")
-    contraseña = input("Ingrese su contraseña: ")
+    encontrado = False
 
-    while usuario != usuario_registrado or contraseña != contraseña_registrada:
-
-        print("Usuario o contraseña incorrectos, intente de nuevo")
+    while encontrado == False:
 
         usuario = input("Ingrese su nombre de usuario: ")
         contraseña = input("Ingrese su contraseña: ")
+
+        for i in range(len(usuarios)):
+
+            if usuarios[i]["usuario"] == usuario and usuarios[i]["contraseña"] == contraseña:
+
+                encontrado = True
+
+        if encontrado == False:
+            print("Usuario o contraseña incorrectos")
 
     print("Inicio de sesion exitoso")
 

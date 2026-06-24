@@ -243,3 +243,5 @@ def obtener_columna(matriz:list, columna:int) -> list:
 
 
 
+
+
