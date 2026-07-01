@@ -1,8 +1,16 @@
-def separar(caracteres: str, 
-            separador: str = ",")-> list:
+def separar(caracteres: str,separador: str = ",")-> list:
 
-    '''
-    '''
+    """
+    Separa una cadena de
+    caracteres utilizando
+    un separador determinado.
+
+    Retorno:
+    list -> lista con las
+    cadenas obtenidas.
+    """
+
+    
     lista_palabras = []
     palabra_actual = ""
 

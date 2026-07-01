@@ -35,6 +35,26 @@ def es_numero(cadena:str) -> bool:
     
     return valido
 
+def es_columna_numerica(matriz:list, columna:int) -> bool:
+
+    """
+    Determina si todos los
+    elementos de una columna
+    son numericos.
+
+    Retorno:
+    true -> columna numerica.
+    false -> columna NO numerica.
+    """
+
+    retorno = True
+
+    for i in range(len(matriz)):
+        if type(matriz[i][columna]) != int:
+            retorno = False
+
+    return retorno
+
 def get_int(mensaje:str) -> int:
 
     """
